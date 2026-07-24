@@ -1,0 +1,11 @@
+#include<stdio.h>
+int main()
+{	
+   float rupees,dollars;
+   float exchange_rate=83.50;
+   printf("Enter amount in rupees:");
+   scanf("%f",&rupees);
+   dollars=rupees/exchange_rate;
+   printf("%2f INR is equal to %2f USD\n",rupees,dollars);
+   return 0;
+}
