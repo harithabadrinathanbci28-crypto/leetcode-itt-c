@@ -1,0 +1,21 @@
+int diff(const char* w1, const char* w2){
+    int d = 0; 
+    for(int i = 0; w1[i]; i++){
+        if(w1[i] != w2[i]){
+            d++;
+            if(d > 1){
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+int ladderLength(char* beginWord, char* endWord, char** wordList, int wordListSize) {
+    int found = 0;
+    for(int i = 0; i < wordListSize; i++){
+        if(strcmp(endWord, wordList[i]) == 0){
+            found = 1;
+            break;
+        }
+    }
