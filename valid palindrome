@@ -1,0 +1,23 @@
+bool isPalindrome(char* s) {
+    int start=0, end=strlen(s)-1;
+    while(start<end)
+    {
+        if(!isalnum(s[start]))  //trying to skip all the non alpha characters
+        {
+            start++;
+            continue;         //skip
+        }
+        if(!isalnum(s[end]))
+        {
+            end--;
+            continue;   //skip
+        }
+        if(tolower(s[start])!=tolower(s[end]))   //comparing two valid characters
+            return 0;     //if not same then return failure
+
+        start++;
+        end--;
+    }
+    return 1;
+    
+}
