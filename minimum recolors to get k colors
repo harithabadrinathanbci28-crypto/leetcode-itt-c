@@ -1,0 +1,16 @@
+int minimumRecolors(char* blocks, int k) {
+    int Wcount = k;
+    for(int i = 0; i < k ; i++){
+        if(blocks[i] == 'B') Wcount--;
+    }
+
+    int range = strlen(blocks);
+    int min = Wcount;
+
+    for(int i = 0; i < range-k && min > 0; i++){
+        Wcount += (blocks[k+i] == 'W') - (blocks[i] == 'W');
+        if (Wcount < min) min = Wcount;
+    }
+
+    return min;   
+}
