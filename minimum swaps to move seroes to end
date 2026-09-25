@@ -1,0 +1,19 @@
+int minimumSwaps(int* nums, int numsSize) {
+    int i = 0; 
+    int j = numsSize-1;
+    int k = 0;
+    while(i<j) {
+        if(nums[i]==0 && nums[j]!=0) {
+            k++;
+            i++;
+            j--;
+        }
+        else if(nums[j]==0) {
+            j--;
+        }
+        else if(nums[i]!=0) {
+            i++;
+        }
+    }
+    return k;
+}
