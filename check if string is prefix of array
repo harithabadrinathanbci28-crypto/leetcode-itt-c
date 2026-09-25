@@ -1,0 +1,18 @@
+bool isPrefixString(char* s, char** words, int wordsSize) {
+    int n1 = strlen(s);
+    char temp[10000] = {0};
+    int ind = 0;
+    for(int i=0;i<wordsSize;i++){
+        for(int j=0;words[i][j]!='\0';j++){
+            temp[ind++] = words[i][j];
+        }
+        if(ind>=n1){
+            
+            if(strcmp(s,temp)==0)
+            return true;
+            else
+            return false;
+        }
+    }
+    return false;
+}
