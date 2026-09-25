@@ -1,0 +1,27 @@
+char* rearrangeString(char* s, char x, char y) {
+    int len = strlen(s);
+    int cntX = 0;
+    int cntY = 0;
+    int cnt = 0;
+    for (int i = 0; i < len; i++) {
+        if (s[i] == x) {
+            cntX++;
+            continue;
+        }
+        if (s[i] == y) {
+            cntY++;
+            continue;
+        }
+        s[cnt++] = s[i]; 
+    }
+
+    for (int i = 0; i < cntY; i++) {
+        s[cnt++] = y;
+    }
+
+    for (int i = 0; i < cntX; i++) {
+        s[cnt++] = x;
+    }
+
+    return s;
+}
