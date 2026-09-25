@@ -1,0 +1,67 @@
+//this function will return an array including the index of those alphabets without their lowercase or uppercase.
+//and also the length of such array
+struct body{
+    int head;
+    int tail;
+};
+
+int splitPoint(char* s, int head, int tail){
+    bool* lowercase = (bool*)calloc(26,sizeof(bool));
+    bool* uppercase = (bool*)calloc(26,sizeof(bool));
+    for(int i = head;i<tail;i++){
+        if (s[i] >= 'A' && s[i] <= 'Z'){
+            uppercase[s[i] - 'A'] = true;
+        }
+        else{
+            lowercase[s[i] - 'a'] = true;
+        }
+    }
+    for(int i = head;i<tail;i++){
+        if (s[i] >= 'A' && s[i] <= 'Z'){
+            if (lowercase[s[i] - 'A'] == false) return i;
+        }
+        else{
+            if (uppercase[s[i] - 'a'] == false) return i;
+        }
+    }
+
+    // no split point, means the substring is nice.
+    return -1;
+}
+
+struct body findLongestNiceS(char* s, int head, int tail){
+    struct body ans;
+    ans.head = head;
+    ans.tail = tail;
+
+    //Decide the split point
+    int point = splitPoint(s,head,tail);
+
+    //Find nice substring
+    if (point == -1){
+        return ans;
+    }
+
+    //Divide and conquire
+    struct body left;
+    struct body right;
+    left = findLongestNiceS(s,head,point);
+    right = findLongestNiceS(s,point+1,tail);   
+
+    //return the longest one, and notice to return the leftest if their lengths are same.
+    ans = (left.tail - left.head) >= (right.tail - right.head) ? left : right;
+    return ans;
+}
+
+char * longestNiceSubstring(char * s){
+    int len = strlen(s);
+
+    //find the begin & end index.
+    struct body pair = findLongestNiceS(s,0,len);
+
+    //copy the answer
+    char* res = (char*)malloc(sizeof(char) * ((pair.tail - pair.head)+1));
+    res[(pair.tail - pair.head)] = '\0';
+    memcpy(res,&(s[pair.head]),(pair.tail - pair.head) * sizeof(char));
+    return res;
+}
