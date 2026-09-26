@@ -1,0 +1,12 @@
+int cmp(const void *x, const void *y){
+    return (*(const struct TreeNode **)x)->val - (*(const struct TreeNode **)y)->val;
+}
+
+struct TreeNode* increasingBST(struct TreeNode* root){
+    struct TreeNode *n[1000];
+    int f = 0, b = 0;
+    for (f = -1, n[b++] = root ; ++f < b ; n[f]->left && (n[b++] = n[f]->left), n[f]->right && (n[b++] = n[f]->right));
+    qsort(n, b, sizeof(struct TreeNode *), cmp);
+    for (int i = -1 ; ++i + 1 < b ; n[i]->left = NULL, n[i]->right = n[i + 1]);
+    return n[b - 1]->left = n[b - 1]->right = NULL, n[0];
+}
