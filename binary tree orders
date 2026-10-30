@@ -1,0 +1,48 @@
+#include <stdlib.h>
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ * int val;
+ * struct TreeNode *left;
+ * struct TreeNode *right;
+ * };
+ */
+
+// A simple stack-based iterative approach is more idiomatic for C to avoid manual memory management for recursion.
+int* inorderTraversal(struct TreeNode* root, int* returnSize) {
+    int* result = NULL;
+    *returnSize = 0;
+    
+    struct TreeNode** stack = (struct TreeNode**)malloc(sizeof(struct TreeNode*) * 100);
+    int top = -1;
+    int capacity = 100;
+    
+    struct TreeNode* current = root;
+
+    while (current != NULL || top != -1) {
+        while (current != NULL) {
+            if (top + 1 >= capacity) {
+                capacity *= 2;
+                stack = (struct TreeNode**)realloc(stack, sizeof(struct TreeNode*) * capacity);
+            }
+            stack[++top] = current;
+            current = current->left;
+        }
+
+        current = stack[top--];
+        
+        // Dynamically resize the result array
+        if (*returnSize + 1 > capacity) {
+            capacity *= 2;
+            result = (int*)realloc(result, sizeof(int) * capacity);
+        }
+        result[*returnSize] = current->val;
+        (*returnSize)++;
+        
+        current = current->right;
+    }
+    
+    free(stack);
+    return result;
+}
